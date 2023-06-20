@@ -25,7 +25,7 @@ Update guide - see: [https://update.angular.io](https://update.angular.io)
 
 ``` bash
 # clone the repo
-$ git clone https://github.com/apurbatech/web-mydocreader.git
+$ git clone https://github.com/docReader/mydocreaderUI.git
 
 # go into app's directory
 $ cd mydocreaderUI
@@ -98,21 +98,21 @@ https://mydocreader.gov.bd/dr-core/
 
 ### Sample Screenshots
 ###### Login Page
-![image](https://github.com/apurbatech/web-mydocreader/assets/24198895/b6ed2160-5b8d-4b48-86ae-7b906bdfd460)
+![image](https://github.com/docReader/mydocreaderUI/assets/24198895/b6ed2160-5b8d-4b48-86ae-7b906bdfd460)
 ###### User Register page
-![image](https://github.com/apurbatech/web-mydocreader/assets/24198895/ff26d3be-679d-4e92-a3b5-b4b89a11d892)
+![image](https://github.com/docReader/mydocreaderUI/assets/24198895/ff26d3be-679d-4e92-a3b5-b4b89a11d892)
 
 ###### Non Member Page
-![image](https://github.com/apurbatech/web-mydocreader/assets/24198895/d75a3ee7-e1be-45c9-aff1-7500c669c60e)
+![image](https://github.com/docReader/mydocreaderUI/assets/24198895/d75a3ee7-e1be-45c9-aff1-7500c669c60e)
 
 ###### Dashboard UI
-![image](https://github.com/apurbatech/web-mydocreader/assets/24198895/baf8d3e5-4643-462d-9595-3141b04e4fc8)
+![image](https://github.com/docReader/mydocreaderUI/assets/24198895/baf8d3e5-4643-462d-9595-3141b04e4fc8)
 
 
 ###### Project Files UI
-![image](https://github.com/apurbatech/web-mydocreader/assets/24198895/bc2fb2d7-7e63-4706-994e-9e4d744eb338)
+![image](https://github.com/docReader/mydocreaderUI/assets/24198895/bc2fb2d7-7e63-4706-994e-9e4d744eb338)
 
 
 ###### Process Page UI
-![image](https://github.com/apurbatech/web-mydocreader/assets/24198895/d183e101-2c21-4f39-aff7-59a57cf9da77)
+![image](https://github.com/docReader/mydocreaderUI/assets/24198895/d183e101-2c21-4f39-aff7-59a57cf9da77)
 
