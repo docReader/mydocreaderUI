@@ -28,7 +28,7 @@ Update guide - see: [https://update.angular.io](https://update.angular.io)
 $ git clone https://github.com/apurbatech/web-mydocreader.git
 
 # go into app's directory
-$ cd web-mydocreader
+$ cd mydocreaderUI
 
 # install app's dependencies
 $ npm install
@@ -53,7 +53,7 @@ $ ng build --prod --build-optimizer
 Within the download you'll find the following directories and files, logically grouping common assets and providing both compiled and minified variations. You'll see something like this:
 
 ```
-web-mydocreader/
+mydocreaderUI/
 ├── e2e/
 ├── src/
 │   ├── app/
