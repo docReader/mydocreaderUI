@@ -98,21 +98,19 @@ https://mydocreader.gov.bd/dr-core/
 
 ### Sample Screenshots
 ###### Login Page
-![image](https://github.com/docReader/mydocreaderUI/assets/24198895/b6ed2160-5b8d-4b48-86ae-7b906bdfd460)
+![image](https://github.com/docReader/mydocreaderUI/assets/24198895/59ece80b-434c-4f75-aa49-3cbed3ece623)
 ###### User Register page
-![image](https://github.com/docReader/mydocreaderUI/assets/24198895/ff26d3be-679d-4e92-a3b5-b4b89a11d892)
-
+![image](https://github.com/docReader/mydocreaderUI/assets/24198895/143287f8-88e4-499d-968e-9af569a09f73)
 ###### Non Member Page
-![image](https://github.com/docReader/mydocreaderUI/assets/24198895/d75a3ee7-e1be-45c9-aff1-7500c669c60e)
+![image](https://github.com/docReader/mydocreaderUI/assets/24198895/7482e914-f63e-4625-87da-70ceffb95499)
 
 ###### Dashboard UI
-![image](https://github.com/docReader/mydocreaderUI/assets/24198895/baf8d3e5-4643-462d-9595-3141b04e4fc8)
-
+![image](https://github.com/docReader/mydocreaderUI/assets/24198895/f931d40a-8337-476d-82f0-1d6ec002d4f6)
 
 ###### Project Files UI
-![image](https://github.com/docReader/mydocreaderUI/assets/24198895/bc2fb2d7-7e63-4706-994e-9e4d744eb338)
-
+![image](https://github.com/docReader/mydocreaderUI/assets/24198895/96945670-59cd-4639-a36c-7f948647ccde)
 
 ###### Process Page UI
-![image](https://github.com/docReader/mydocreaderUI/assets/24198895/d183e101-2c21-4f39-aff7-59a57cf9da77)
+![image](https://github.com/docReader/mydocreaderUI/assets/24198895/ef3fa851-eebb-498f-96de-a35e4ab55d24)
+
 
