@@ -1,0 +1,293 @@
+<nav class="navbar sticky-top border-bottom navbar-expand-lg navbar-light bg-white p-0">
+	<a class="navbar-brand pl-4" [routerLink]="['/dashboard']" style="margin: -16px 0px -16px;">
+		<img src="assets/img/document_reader_logo.png" width="85" height="85" [ngClass]="'navbar-brand'">
+	</a>
+	<button class="navbar-toggler P-2 mr-2" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+	<div class="collapse navbar-collapse bg-white" id="navbarTogglerDemo02">
+	<ul class="navbar-nav mr-auto mt-2 mt-lg-0 navbutton-ul" style="padding-left: 16%;">
+		<span><b>Welcome to Document Reader</b></span>
+	  </ul>
+	  <div class="my-2 my-lg-0">
+		<ul class="nav navbar-nav">
+			<span *ngIf="showLoading"><i class="fa fa-spinner fa-spin text-primary" style="font-size:30px"></i></span>
+			<div class="btn-group pr-4">
+					<!-- <img src="assets/img/user.png" class="" alt="" width="35" height="30" /> -->
+                    <a (click)="buttonActive_home();" class="btn btn-primary text-white" id="home_button" [routerLink]="['/g-home']"> Home</a>
+                    <a (click)="buttonActive_login();" class="btn btn-primary text-white" id="login_button"  [routerLink]="['/login']" > Login</a>
+			  </div>
+		  </ul>
+	  </div>
+	</div>
+  </nav>
+
+  <div class="app-body">
+	<main class="main">
+	<div class="container-fluid p-2">
+		<div class="col-12">
+	   
+		 <!-- Original Inner Code Start Here -->
+		<div class="animated fadeIn" >
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<div class="row d-flex justify-content-center">
+								<span class="create-project">{{uploadedFileName}}&nbsp;<input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+									<a class="btn btn-primary text-white" (click)="fileInput.click()">Upload File</a></span>
+								<!-- <a (click)="copyToEditorText(ocrOutputData)" title="Copy" class="btn btn-primary btn-ms" style="background:#35304C;border-color:#35304C; color:white;">
+									Helps
+								</a> -->
+							</div>
+						</div>
+						<div class="card-body" style="padding:5px;">
+							<!-- Editor Toolbar Start Here-->
+										<div class="row p-l-10">
+											<div *ngIf="hasError" class="alert alert-danger" role="alert">
+												{{errorMessage}}
+											</div>
+										</div>
+										<div class="row">
+											<!-- sale card start -->
+											<div id="div2" class="col-xl-6 col-md-12 m-b-20">
+												<div class="card text-center order-visitor-card" style="height:100%">
+													<div class="card-block">
+														<div class="row" id="rowHeight">
+															<div class="col-1 p-1 bg-black">
+															 <div  id="controls" class="btn-group-vertical" role="toolbar" aria-label="Edit Image">
+																 <!-- <a class="btn btn-primary btn-ms" style="background:#35304C;border-color:#35304C;" onclick="window.history.go(-1)"><i class="fa fa-arrow-left text-c-white"></i></a>	 -->
+																 <a class="btn btn-primary btn-ms text-white" (click)="usersHelps();" style="background:#35304C;border-color:#35304C;" >Helps</a>	
+															 </div>
+															</div>
+															<div class="col-11">
+																  <div id="canvas-container p-2">
+																  <canvas id="canvas" class="canvasclass" #MyCanvas >
+																	<img id="ocr_image"  [src]="imageToShow" alt="Image" #MyOcrImage>	
+																  </canvas> 
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div id="div1" class="col-xl-6 col-md-12 m-b-20">
+												<div class="row">
+													<span class="tooltip-md">
+														<span class="tooltiptext-md">
+														  <button (click)="runToExtact()" [disabled]="!runOCRButtonActive" class="run-ocr btn" style="background:#35304C;border-color:#35304C;">
+															<i class="fa fa-chevron-right text-c-red"id="icon-fontsize" style="font-weight:600" data-placement="right" title="Verify Template and Extract Text"></i>
+														 </button>
+														  <br/>
+														  <br/>
+														   <button (click)="handleExtractText()" [disabled]="!runOCRButtonActive" class="run-ocr btn" style="background:#35304C;border-color:#35304C;">
+															 <i class="fa fa-check text-c-green m-verify" id="icon-fontsize" style="font-weight:600" data-placement="right" title="Extract Text"></i>
+														  </button>
+														   </span>
+														</span>
+													<div class="col-11">
+												<div class="card p-2  order-visitor-card" style="height:100%">
+												 <div class="border-bottom"><b>Template Name:</b> <span>{{msgtex}}</span></div>
+													<div style="width: 100%; height: 100%" *ngIf="enableIFrame">
+														<iframe src="" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%" frameborder="0"></iframe>
+													</div>
+													<div style="width: 100%; background-color: #fff" *ngIf="enableCkEditor">											
+													   <pre *ngIf="ocrConfData.outputType === 'text'" style="text-align:left" [innerText]="ocrOutputData"></pre>
+													</div>
+												</div>
+												</div>
+											</div>
+											</div>
+											
+		
+											<!-- Show the cropped image in modal -->
+											<div class="modal fade docs-cropped" id="getCroppedCanvasModal" role="dialog" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" tabindex="-1">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="getCroppedCanvasTitle">Save Image<span class="p-50"></span><span *ngIf="showLoading"><i class="fa fa-spinner fa-spin text-primary" style="font-size:30px"></i></span></h5>
+															<button type="button" class="close invisible" data-dismiss="modal" aria-label="Close">
+																<!--<span aria-hidden="true">&times;</span>-->
+															</button>
+															<img id="loading-image" src="assets/img/ajax-load.gif" style="display:none"/>
+																<button type="button" class="btn btn-danger m-r-5" data-dismiss="modal">Close</button>
+																<button type="button" (click)="handleImageUpdate()" class="btn btn-primary">Save</button>
+														</div>
+														<div class="modal-body">
+															<img src="" class="showPic" title="sample" id="ocr_preview_image">
+															</div>
+															<div class="modal-footer">
+																<img id="loading-image" src="assets/img/ajax-load.gif" style="display:none"/>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!-- /.modal -->
+		
+												<!-- Modal Revert Original -->
+												<div class="modal fade" id="revertoriginal_modal" tabindex="-1" role="dialog" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title">Return Original <span *ngIf="showLoading"><i class="fa fa-spinner fa-spin text-primary" style="font-size:30px"></i></span></h5>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">Are you sure you want to return to the original file?
+																<input type="text" class="form-control" id="fileid" name="fileid" value="{{documentId}}" readonly />
+																<input type="hidden" id="filename" name="filename" value="{{documentName}}" />
+															</div>
+															<div class="modal-footer">
+																<button class="btn btn-success" (click)="handleReloadOriginalImage()" type="button" name="submit">Yes</button>
+																<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!-- sale card end -->
+												<!--share Link-->
+												<div class="modal fade" id="share_modal" tabindex="-1" role="dialog" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title">Share Pages</h5>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+															</div>
+															<div class="modal-footer">
+															</div>
+														</div>
+													</div>
+												</div>
+		
+											</div>
+										
+										<!-- Editor Toolbar End here-->
+										</div>
+										
+									</div>
+								</div>
+								<!--/.col-->
+							</div>
+							<!--/.row-->
+						</div>
+						
+						<!-- runocr js -->		
+ 
+				 <!-- Original Inner Code End Here -->
+				  <!--User Help Modal-->
+				<div class="d-flex justify-content-center">
+					<div class="modal fade" id="UsersHelps" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLongTitle">Help Details</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+						<ol>
+					<li>Image resolution should be a minimum of 4 MegaPixels</li>
+					<li>Images will not be burned, torned, dirty, scratched, folded, blurred</li>
+					<li>Skew, no more than 4 degrees</li>
+					<li>Each image should contain single side of the card</li>
+					<li>Upload png, jpg or pdf file</li>
+					<li>Five categories of documents are supported</li>
+					<li>NID and driving license are allowed for User Identity</li>
+					<li>TIN, BIN and Trade license are allowed for Business Entity</li>
+					<li>SSC and HSC marksheets and certificates are allowed for Education Entity</li>
+					<li>CS and RS khotian are allowed for Land Entity</li>
+					<li>Office Adesh is allowed for Nothi</li>
+						</ol> 
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+						</div>
+						</div>
+					</div>
+					</div>
+					</div>
+					<!--end-->
+
+
+					<!--Run OCR-->
+				<div class="d-flex justify-content-start">
+					<div class="modal fade" id="runToExtact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLongTitle">Document Type</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div  id="controls" class="btn-group-vertical" role="toolbar" aria-label="Menu type">
+								<button type="button" class="btn"><b>Please Select Document Type</b></button>
+								<br/>
+								<a  (click)="changeDocType('user')" title="User Identity" class="btn btn-primary btn-ms  text-white button-align-left"> <i class="fa fa-id-card-o text-c-white"></i>  <i *ngIf="documentType=='user'" class="fa  fa-check  text-c-green"></i>NID/Passport/Birth Certificate/Driving License</a>
+								<a  (click)="changeDocType('business')" title="Business Entity" class="btn btn-primary btn-ms  text-white button-align-left"> <i class="fa fa-briefcase text-c-white"></i>  <i *ngIf="documentType=='business'" class="fa  fa-check  text-c-green"></i>TIN/BIN/RJSC/Trade License </a>
+								<a id="fonticon-size"(click)="changeDocType('education')" title="Education Entity" class="btn btn-primary btn-ms  text-white button-align-left"> <i class="fa fa-graduation-cap text-c-white"></i>  <i *ngIf="documentType=='education'" class="fa  fa-check  text-c-green"></i>SSC/HSC Marksheets/Certificate								</a>
+								<a id="fonticon-size"(click)="changeDocType('land')" title="Land Entity" class="btn btn-primary btn-ms  text-white button-align-left"> <i class="fa fa-home text-c-white" style="font-size:15px;"></i> <i *ngIf="documentType=='land'" class="fa  fa-check  text-c-green"></i>RS / CS Khotian</a>
+								<a  (click)="changeDocType('nothi')" title="Nothi" class="btn btn-primary btn-ms  text-white button-align-left"> <i class="fa fa-file-text text-c-white"></i>  <i *ngIf="documentType=='nothi'" class="fa  fa-check  text-c-green"></i>Nothi</a>
+								<!--<a  (click)="changeDocType('land')" title="Land Department" class="btn btn-primary btn-ms  text-white"> <i class="fa fa-home text-c-white"></i>  <i *ngIf="documentType=='land'" class="fa  fa-check  text-c-green"></i></a>-->
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" (click)="modalClose();" class="btn btn-danger">Cancel</button>
+							<button type="button" (click)="handleVerifyTemplateText()" class="btn btn-primary btn-ms" data-dismiss="modal">Confirm</button>
+							<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!--end-->
+	</div>
+ </div>
+ </main>
+ </div>
+ <footer class="container-fluid p-1 footer1">
+	<div class="bg-white pt-3 h-100">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 col-sm-4 text-start mb-3 mb-sm-0">
+					<div class="col d-flex h-100 text-sm-center d-flex justify-content-center">
+						<div class="col-md-5 col-sm-5 justify-content-center align-self-center">পরিকল্পনা ও বাস্তবায়নে</div>
+						<div class="col-md-7 col-sm-7 justify-content-center align-self-center">
+							<a href="https://a2i.gov.bd" target="_blank"> <img class="img-fluid" src="https://cdap.training.mygov.bd/img/a2i-logo-set.png"> </a>
+						</div>
+					</div>
+				</div>
+  
+				<div class="col-md-4 col-sm-4 mb-3 mb-sm-0">
+					<div class="text-center h-100">
+						<div> কপিরাইট © ২০২২  সর্বস্বত্ব সংরক্ষিত</div>
+						<div>গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</div>
+					</div>
+				</div>
+  
+				<div class="col-md-4 col-sm-4 text-sm-center">
+					<div class="row d-flex h-100 justify-content-center justify-content-lg-end justify-content-md-end justify-content-sm-center align-self-sm-center justify-content-xs-center">
+						<div class="col-6 col-md-8 col-sm-8 d-flex justify-content-center align-self-center justify-content-sm-center align-self-sm-center text-sm-center">
+							কারিগরি সহযোগিতায়
+						</div>
+						<div class="col-4 col-md-4 col-sm-4 d-flex justify-content-start align-self-center ps-0">
+							<a href="https://apurba.com.bd/" target="_blank"> 
+								<img class="img-fluid" src="https://apurba.com.bd/themes/images/apurba_bangladesh_logo.png">
+							</a>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  </footer>

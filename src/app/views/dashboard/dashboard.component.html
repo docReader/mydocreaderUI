@@ -1,0 +1,69 @@
+<div class="page-body m-t-20">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<div class="row">
+						<div class="col-12 d-flex justify-content-between">
+							<strong>Projects</strong>
+							<span *ngIf="showLoading"><i class="fa fa-spinner fa-spin text-primary" style="font-size:30px"></i></span>
+							<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#project_modal" title="Create Project"><i class="fa fa-plus mr-2" style="font-size:20px"></i><b style="font-size:15px">Create Project</b></a>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="row pl-5">
+						<div class="col-lg-12 col-12 text-center">
+							<div class="row">
+								<h5 style="opacity: 0.3;">{{this.message_dashboard}}</h5>
+								<div *ngFor="let projInfo of projectList" class="col-2 border p-2 m-2 project-filesName-show-smaller">
+									<a [routerLink]="['/project/',projInfo.id]" title="{{projInfo.name}}">{{projInfo.name}}</a>
+								</div>
+							</div>
+						</div>
+						<br/>
+						<br/>
+						<br/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/.col-->
+	</div>
+	<br/>
+	<br/>
+	<!--/.row-->
+
+	<!-- Project Create Modal Start Here -->
+
+	<div class="modal fade" id="project_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Create Project</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div> 
+				<form #projectForm="ngForm" (ngSubmit)="onProjectCreate(projectForm)">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="project_name_id">Project Name</label>
+							<input type="text" ngModel class="form-control" name="name" id="project_name_id" placeholder="Project Name" required #projectNameInput="ngModel">
+							<span class="help-block" *ngIf="projectNameInput.Invalid" style="color:red">Please enter project name</span>
+						</div>
+						<input type="hidden" name="fileid" value="id"/>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" #myModalClose data-dismiss="modal">Close</button>
+						<button [disabled]="projectForm.invalid" class="btn btn-primary" type="submit" name="submit">Create Project</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Project Create Modal End Here-->
+
+	
+</div>

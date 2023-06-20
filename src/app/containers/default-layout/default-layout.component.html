@@ -1,0 +1,186 @@
+
+<custom-header style="height: 65px;"
+  [navbarBrandRouterLink]="['/dashboard']"
+  [fixed]="true"
+  [navbarBrandFull]="{src: 'assets/img/document_reader_logo.png', width: 80, height: 75, alt: 'Soborno'}"
+  [navbarBrandMinimized]="{src: 'assets/img/document_reader_logo.png', width: 30, height: 30, alt: 'Soborna'}"
+  [sidebarToggler]="false"
+  [mobileAsideMenuToggler]="false"
+  [mobileSidebarToggler]="false"
+  [asideMenuToggler]="false"
+  [customHeaderMenuToggler]="false">
+  <ul class="nav navbar-nav d-md-down-none" style="padding-left: 30%">
+    <li class="nav-item px-3">
+      <!-- text/slogan will be here -->
+      
+    </li>
+    
+  </ul>
+  <span><b>Welcome to Document Reader</b></span>
+  <ul class="nav navbar-nav ml-auto p-r-25">
+    <li class="nav-item dropdown" dropdown placement="bottom right">
+      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
+        <img src="assets/img/user.png" class="img-avatar" alt="" style="width: 55%;" />
+    </a>
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+        <div class="dropdown-header text-center"><strong>Settings</strong></div>
+        <a class="dropdown-item btn" (click)="usersDetails();"><i class="fa fa-user"></i> My Profile</a>
+        <a class="dropdown-item btn" (click)="usersHelps();"><i class="fa fa-wrench"></i> help</a>
+        <!-- <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a>--> 
+        <div class="divider"></div>
+        <a *ngIf="buttonShow" class="dropdown-item" [routerLink]="['/users']"><i class="fa fa-user"></i> Users List</a>
+        <a class="dropdown-item" [routerLink]="['/logout']"><i class="fa fa-lock"></i> Logout</a>
+      </div>
+    </li>
+  </ul>
+</custom-header>
+<div class="app-body">
+ 
+  <!-- Main content -->
+  <main class="main">
+    
+    <div class="container-fluid">
+      <div col-12>
+      <router-outlet></router-outlet>
+    </div>
+    </div><!-- /.container-fluid -->
+  </main>
+
+</div>
+<footer class="container-fluid p-1 footer">
+  <div class="bg-white pt-3 h-100">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-4 col-sm-4 text-start mb-3 mb-sm-0">
+                  <div class="col d-flex h-100 text-sm-center d-flex justify-content-center">
+                      <div class="col-md-5 col-sm-5 justify-content-center align-self-center">পরিকল্পনা ও বাস্তবায়নে</div>
+                      <div class="col-md-7 col-sm-7 justify-content-center align-self-center">
+                          <a href="https://a2i.gov.bd" target="_blank"> <img class="img-fluid" src="https://cdap.training.mygov.bd/img/a2i-logo-set.png"> </a>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col-md-4 col-sm-4 mb-3 mb-sm-0">
+                  <div class="text-center h-100">
+                      <div> কপিরাইট © ২০২২  সর্বস্বত্ব সংরক্ষিত</div>
+                      <div>গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</div>
+                  </div>
+              </div>
+
+              <div class="col-md-4 col-sm-4 text-sm-center">
+                  <div class="row d-flex h-100 justify-content-center justify-content-lg-end justify-content-md-end justify-content-sm-center align-self-sm-center justify-content-xs-center">
+                      <div class="col-6 col-md-8 col-sm-8 d-flex justify-content-center align-self-center justify-content-sm-center align-self-sm-center text-sm-center">
+                          কারিগরি সহযোগিতায়
+                      </div>
+                      <div class="col-4 col-md-4 col-sm-4 d-flex justify-content-start align-self-center ps-0">
+                        <a href="https://apurba.com.bd/" target="_blank"> 
+                          <img class="img-fluid" src="https://apurba.com.bd/themes/images/apurba_bangladesh_logo.png">
+                        </a>
+                          
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</footer>
+<!--user Details-->
+<div class="d-flex justify-content-center">
+  <div class="modal fade" id="Usersdetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">User Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table border">
+            <thead>
+              <tr>
+                <th scope="col">User Id</th>
+                <th scope="col">User Name</th>
+                <th scope="col">Full Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">{{userId}}</th>
+                <td>{{userName}}</td>
+                <td>{{fullName}}</td>
+               
+              </tr>
+            
+            </tbody>
+          </table>
+           <!-- <div class="card">
+            <span>User Id   :{{userId}}</span>
+            <span>User Name :{{userName}}</span>
+            <span>Full Name :{{fullName}}</span>
+
+           </div> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+    <!--end-->
+
+    <!--User Help Modal-->
+	<div class="d-flex justify-content-center">
+		<div class="modal fade" id="UsersHelps" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Help Details</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body">
+			<ol>
+        <li>Image resolution should be a minimum of 4 MegaPixels</li>
+        <li>Images will not be burned, torned, dirty, scratched, folded, blurred</li>
+        <li>Skew, no more than 4 degrees</li>
+        <li>Each image should contain single side of the card</li>
+        <li>Upload png, jpg or pdf file</li>
+        <li>Five categories of documents are supported</li>
+        <li>NID and driving license are allowed for User Identity</li>
+        <li>TIN, BIN and Trade license are allowed for Business Entity</li>
+        <li>SSC and HSC marksheets and certificates are allowed for Education Entity</li>
+        <li>CS and RS khotian are allowed for Land Entity</li>
+        <li>Office Adesh is allowed for Nothi</li>
+			</ol> 
+				<!-- <div class="row">
+				<div class="col-6">
+			<ol>
+					<li>Coffee</li>
+					<li>Tea</li>
+					<li>Milk</li>
+			</ol> 
+				
+			 </div>
+				<div class="col-6">
+					<ul>
+						<li>Coffee</li>
+						<li>Tea</li>
+						<li>Milk</li>
+					</ul>
+				</div>
+			</div> -->
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+			  </div>
+			</div>
+		  </div>
+		</div>
+		  </div>
+

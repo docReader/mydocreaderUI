@@ -1,0 +1,174 @@
+
+<nav class="navbar sticky-top border-bottom navbar-expand-lg navbar-light bg-white p-0">
+	<a class="navbar-brand pl-4" [routerLink]="['/dashboard']" style="margin: -16px 0px -16px;">
+		<img src="assets/img/document_reader_logo.png" width="85" height="85" [ngClass]="'navbar-brand'">
+	</a>
+	<!--<button id="ImageResize" (click)="sideToggleMenu()"  class="navbar-toggler_left P-2">
+		<span class="navbar-toggler-icon"></span>
+	 </button>-->
+	<button class="navbar-toggler P-2 mr-2" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+	
+	
+	
+	<div class="collapse navbar-collapse bg-white" id="navbarTogglerDemo02">
+	<ul class="navbar-nav mr-auto mt-2 mt-lg-0 navbutton-ul" style="padding-left: 16%;">
+		<span><b>Welcome to Document Reader</b></span>
+	  </ul>
+	  <div class="my-2 my-lg-0">
+		<ul class="nav navbar-nav">
+			<!-- <span *ngIf="showLoading"><i class="fa fa-spinner fa-spin text-primary" style="font-size:30px"></i></span> -->
+			<div class="btn-group pr-4">
+					<!-- <img src="assets/img/user.png" class="" alt="" width="35" height="30" /> -->
+          <a  class="btn btn-primary text-white" id="home_button" [routerLink]="['/g-home']"> Home</a>
+          <a  class="btn btn-primary text-white" id="login_button"  [routerLink]="['/login']" > Login</a>
+				
+			  </div>
+	
+		  </ul>
+	  </div>
+	</div>
+  </nav>
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+	<!-- <div class="text-center m-2">
+            <img src="assets/img/document_reader_logo.png" class="img-100" alt="" />
+     </div> -->
+      <div class="row">
+        <div class="col-md-5 mx-auto">
+          <div class="card-group">
+            <div class="card">
+              <div class="card-body pl-4 pr-4">
+                <form>
+                  <h5 class="text-center">User Register</h5>
+                  <!-- <p class="text-muted">Create your account</p> -->
+                  <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text fontawsome-icon-color border-0 "><i class="icon-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="username" placeholder="Username" autocomplete="username" required>         
+                  </div>
+                    <span class="text-danger pl-4">{{message_userName}}</span>
+                  <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text fontawsome-icon-color border-0 "><i class="fa fa-user-circle"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="first_name"  placeholder="First Name" autocomplete="first_name" required>
+                  </div>
+                  <span class="text-danger pl-4">{{message_firstName}}</span>
+                  <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text fontawsome-icon-color border-0 "><i class="fa fa-user-circle"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="last_name"  placeholder="Last Name" autocomplete="last_name" required>
+                     <!-- <br/>
+                    <span class="text-danger">* {{message_firstName}}</span> -->
+                  </div>
+                  <span class="text-danger pl-4 "></span>
+                  <!-- <span class="text-danger pl-5">{{message_lastName}}</span> -->
+                  <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text fontawsome-icon-color border-0 "><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="email" placeholder="Email" autocomplete="email" required>
+                  </div>
+                  <span class="text-danger pl-4">{{message_email}}</span>
+                  <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text fontawsome-icon-color border-0 "><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control" id="password" placeholder="Password" autocomplete="password" required>
+                  </div>
+                  <span class="text-danger pl-4"> {{message_password}}</span>
+                   <div class="input-group mb-6">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text fontawsome-icon-color border-0 "><i class="fa fa-users"></i></span>
+                    </div>
+                      <select id ="roleId" name="roleId" style="width: 80%;" class="form-select border-0 " aria-label="roleId">
+                                 <!-- <option value="ROLE_ADMIN">Admin</option> -->
+                                 <option value="ROLE_USER">User </option>
+                            
+                        </select>
+                  </div>
+                  <!-- <button type="button" class="btn btn-block btn-success">Create Account</button> -->
+                </form>
+              </div>
+              <div class="p-2">
+                <div class="row">
+                  <div class="col-6">
+                    <button  type="submit" class="btn btn-sm btn-primary border btn-block text-center m-b-20" (click)="userCreate();">Create Account</button>
+                  </div>
+                  <div class="col-6">
+                    <button type="submit"  [routerLink]="['/login']" class="btn btn-sm btn-primary border btn-block text-center m-b-20">Back To Home Page</button>
+                    <!-- <div class="text-center">
+                       <a  [routerLink]="['/login']">Login</a>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          <br/>
+        <br/>
+          </div>
+		  <div class="text-center">
+          <!-- <img src="assets/img/footer.png" class="img-avatar" alt=""/>--> 
+         </div>
+        </div>
+      </div>
+      <br/>
+    </div>
+  </main>
+</div>
+<footer class="container-fluid p-1 footer">
+  <div class="bg-white pt-3 h-100">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-4 col-sm-4 text-start mb-3 mb-sm-0">
+                  <div class="col d-flex h-100 text-sm-center d-flex justify-content-center">
+                      <div class="col-md-5 col-sm-5 justify-content-center align-self-center">পরিকল্পনা ও বাস্তবায়নে</div>
+                      <div class="col-md-7 col-sm-7 justify-content-center align-self-center">
+                          <a href="https://a2i.gov.bd" target="_blank"> <img class="img-fluid" src="https://cdap.training.mygov.bd/img/a2i-logo-set.png"> </a>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col-md-4 col-sm-4 mb-3 mb-sm-0">
+                  <div class="text-center h-100">
+                      <div> কপিরাইট © ২০২২  সর্বস্বত্ব সংরক্ষিত</div>
+                      <div>গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</div>
+                  </div>
+              </div>
+
+              <div class="col-md-4 col-sm-4 text-sm-center">
+                  <div class="row d-flex h-100 justify-content-center justify-content-lg-end justify-content-md-end justify-content-sm-center align-self-sm-center justify-content-xs-center">
+                      <div class="col-6 col-md-8 col-sm-8 d-flex justify-content-center align-self-center justify-content-sm-center align-self-sm-center text-sm-center">
+                          কারিগরি সহযোগিতায়
+                      </div>
+                      <div class="col-4 col-md-4 col-sm-4 d-flex justify-content-start align-self-center ps-0">
+                          <a href="https://apurba.com.bd/" target="_blank"> 
+                              <img class="img-fluid" src="https://apurba.com.bd/themes/images/apurba_bangladesh_logo.png">
+                          </a>
+                          
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</footer>
+          
+
+<div class="d-flex justify-content-center">
+  <div class="modal fade" id="messagealert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-body">
+        <strong class="d-flex justify-content-center">{{message}}</strong>
+       </div>
+     </div>
+   </div>
+ </div> 
+ </div>
+

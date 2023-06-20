@@ -1,0 +1,202 @@
+<div class="page-body m-t-20">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<div class="row">
+						<div class="col-12 justify-content-between">
+							<strong>Users</strong>
+							<span *ngIf="showLoading"><i class="fa fa-spinner fa-spin text-primary text-center" style="font-size:30px"></i></span>
+							<button class="btn btn-primary border rounded float-right text-c-white" onclick="window.history.go(-1)"><i class="fa fa-arrow-left text-c-white"></i>&nbsp;Back</button>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="row pl-5">
+                        <div class="d-flex justify-content-between">  
+							<select (change)="numberList($event)" class="form-select" style="width:85px;height:35px;">
+							  <option *ngFor="let listid of  perpage" [value]="listid.number">
+								{{listid.number}}
+							  </option>
+						  </select>
+						  <!-- <div class="search-name">
+							<input class="form-control" (keyup)="searchTable('val')" type="text" name="search" [(ngModel)]="searchText" autocomplete="on" placeholder=" SEARCH  ">
+						  </div> -->
+						  </div>
+						  <div class="table-responsive">
+						<table class="table table-striped">
+							<thead>
+							<tr>
+							  <th scope="col">S/L</th>
+							  <th scope="col">User Name</th>
+							  <th scope="col">First Name</th>
+							  <th scope="col">Last Name</th>
+							  <th scope="col">Email</th>
+							  <th scope="col">User Permission</th>
+							  <th scope="col">User Role</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr *ngFor="let item of userlist | paginate: { itemsPerPage: listdata , currentPage: p, totalItems: totalRecord };">
+							  <td>{{ item.id }}</td>
+							  <td>{{ item.login }}</td>
+							  <td>{{ item.firstName }}</td>
+							  <td>{{ item.lastName }}</td>
+							  <td>{{ item.email }}</td>
+							  <td>
+							  <a *ngIf="item.activated===true" (click)="deactivate_user(item);" class="btn btn-success">{{item.statusPostion}}</a>
+							  <a *ngIf="item.activated===false "(click)="activate_user(item);"class="btn  btn-danger">{{item.statusPostion}}</a>
+							 </td> 
+							  <td>{{ item.authorities }}</td>
+							</tr>
+							</tbody>
+						  </table>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center"> 
+						<pagination-controls (pageChange)="userList(p = $event)"></pagination-controls>
+					</div>
+				</div>
+			</div>
+			<br/>
+			<br/>
+			<br/>
+		</div>
+		
+		<!--/.col-->
+	</div>
+	
+	<!--/.row-->
+
+	<!-- User Create Modal Start Here -->
+
+	<div class="modal fade" id="user_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Create User</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div> 
+				<form #userForm="ngForm" (ngSubmit)="onUserCreate(userForm)">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="user_name_id">User Name</label>
+							<input type="text" ngModel class="form-control" name="userName" id="user_name_id" placeholder="User Name" required #userNameInput="ngModel">
+							<span class="help-block" *ngIf="userNameInput.Invalid" style="color:red">Please enter user name</span>
+						</div>
+						<div class="form-group">
+							<label for="user_email_id">User Email</label>
+							<input type="text" ngModel class="form-control" name="userEmail" id="user_email_id" placeholder="User Email" required #userEmailInput="ngModel">
+							<span class="help-block" *ngIf="userEmailInput.Invalid" style="color:red">Please enter user email</span>
+						</div>
+						<div class="form-group">
+							<label for="user_role_id">User Role</label>
+							<select ngModel class="form-control" name="userRole" required #userRoleInput="ngModel" id="user_role_id">
+								<option *ngFor="let usrRle of userRoles" [ngValue]="usrRle" >{{usrRle.roleName}}</option>
+							</select>
+							<span class="help-block" *ngIf="userRoleInput.Invalid" style="color:red">Please select user role</span>
+						</div>
+						<input type="hidden" name="fileid" value="id"/>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" #myModalClose data-dismiss="modal">Close</button>
+						<button [disabled]="userForm.invalid" class="btn btn-primary" type="submit" name="submit">Create User</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Project Create Modal End Here-->
+	<div class="d-flex justify-content-center">
+		<div class="modal fade" id="messagepopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		 <div class="modal-dialog" role="document">
+		   <div class="modal-content">
+			 <div class="modal-body">
+			  <strong class="d-flex justify-content-center">{{message}}</strong>
+			 </div>
+		   </div>
+		 </div>
+	   </div> 
+	</div>
+
+
+	  <!-- Modal Run OCR -->
+	  <div class="modal fade" id="ocroption_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">OCR Options</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form #ocrConfForm="ngForm" (ngSubmit)="handleOcrConfigurationUserwiserUpdate(ocrConfForm)">
+					<div class="modal-body">
+						<div class="form-group">
+							<h6>Level Type</h6>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" [(ngModel)]="ocrConfData.ocrModelType" value="word" type="radio" name="ocrModelType" id="word_setting"  required />
+							<label class="form-check-label" for="word">Word</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" [(ngModel)]="ocrConfData.ocrModelType" value="char" type="radio" name="ocrModelType" id="char_setting" />
+							<label class="form-check-label" for="char">Character</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" [(ngModel)]="ocrConfData.ocrModelType" value="hybrid" type="radio" name="ocrModelType" id="hybrid_setting"  />
+							<label class="form-check-label" for="hybrid">Hybrid</label>
+						</div>
+						<div class="form-group m-t-30">
+							<h6>Character Level Segmentation</h6>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" [(ngModel)]="ocrConfData.charSegmentationType" value="contour" type="radio" name="charSegmentationType" id="contour"  required />
+							<label class="form-check-label" for="contour">Contour</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" [(ngModel)]="ocrConfData.charSegmentationType" value="pixel" type="radio" name="charSegmentationType" id="pixel"  />
+							<label class="form-check-label" for="pixel">Pixel</label>
+						</div>
+						<!--<div class="form-group m-t-30">
+							<h6>Spell Checker</h6>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" [(ngModel)]="ocrConfData.spellChecker" value="1" type="radio" name="spellChecker" />
+							<label class="form-check-label" for="none">None</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" [(ngModel)]="ocrConfData.spellChecker" value="2" type="radio" name="spellChecker"/>
+							<label class="form-check-label" for="peter">Spell Checker1</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" [(ngModel)]="ocrConfData.spellChecker" value="3" type="radio" name="spellChecker"/>
+							<label class="form-check-label" for="damerau">Spell Checker2</label>
+						</div>-->
+						<div class="form-group m-t-30">
+							<h6>Apply Formatting</h6>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" [(ngModel)]="ocrConfData.outputType" value="html" type="radio" name="applyFormatting" />
+							<label class="form-check-label" for="yes">Yes</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" [(ngModel)]="ocrConfData.outputType" value="text" type="radio" name="applyFormatting" />
+							<label class="form-check-label" for="no">No</label>
+						</div>
+							<input type="hidden" name="useremail" value="useremail"/>
+							<input type="hidden" [(ngModel)]="ocrConfData.id" name="id"/>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger btn-sm rounded" data-dismiss="modal">Close</button>
+						<button [disabled]="ocrConfForm.invalid" class="btn btn-sm btn-primary rounded" type="submit" name="submit">Save Setting</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+</div>

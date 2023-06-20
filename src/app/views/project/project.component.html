@@ -1,0 +1,57 @@
+<br/>
+<div class="animated fadeIn">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header title-margin" style="padding-bottom:9px;">
+					<div class="row">
+						<div class="col-12 d-flex justify-content-between"><strong>Project Files</strong>
+						<span *ngIf="showLoading"><i class="fa fa-spinner fa-spin text-primary" style="font-size:30px"></i></span>
+						
+						<span class="create-project">{{uploadedFileName}}&nbsp;<input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+						<button class="btn btn-primary" onclick="window.history.go(-1)"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>&nbsp;
+						<button class="btn btn-primary" (click)="fileInput.click()">Upload File</button> 
+						<!--<button class="btn btn-success" (click)="handleImageUpload()">Upload</button>--></span>
+					</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="row pl-5">
+						<div class="col-lg-11 col-11 pl-5 nopad text-center">
+							<div>
+								<div *ngIf="hasError" class="alert alert-danger" role="alert">
+									{{errorMessage}}
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+							</div>
+							<div class="row">
+								<h5 style="opacity: 0.3;">{{this.messagebody}}</h5>
+								<div *ngFor="let docInfo of documentList" >
+									<div class="p-2 m-1 image-checkbox">
+										<a [routerLink]="['/process-mydoc/',docInfo.projectId, docInfo.documentId]">
+											<img [src]="docInfo.filePath" style="height: 100px;width: 150px;border: 2px solid;"/>
+										</a>
+									</div>
+									<div class="font-weight-bold project-filesName-show-smaller">
+										<a [routerLink]="['/process-mydoc/',docInfo.projectId, docInfo.documentId]" title="{{docInfo.fileName}}">{{docInfo.fileName}}</a>
+								</div>
+							</div>
+						</div>
+						<br/>
+						<br/>
+						<br/>
+					</div>
+					<div>
+						<!-- <div *ngIf="hasError" class="alert alert-danger" role="alert">
+							{{errorMessage}}
+						</div> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/.col-->
+	</div>
+	<!--/.row-->
+</div>

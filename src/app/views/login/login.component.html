@@ -1,0 +1,194 @@
+<!--<div class="container d-flex align-items-center">
+  <div style="padding: 20px 20px 0px 470px;">
+   <img src="assets/img/shuborno_logo.png" class="img-avatar" alt=""/>
+  </div>
+</div>-->
+<nav class="navbar sticky-top border-bottom navbar-expand-lg navbar-light bg-white p-0">
+	<a class="navbar-brand pl-4" [routerLink]="['/dashboard']" style="margin: -16px 0px -16px;">
+		<img src="assets/img/document_reader_logo.png" width="85" height="85" [ngClass]="'navbar-brand'">
+	</a>
+	<!--<button id="ImageResize" (click)="sideToggleMenu()"  class="navbar-toggler_left P-2">
+		<span class="navbar-toggler-icon"></span>
+	 </button>-->
+	<button class="navbar-toggler P-2 mr-2" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+	  <!-- <span>Welcome to Document Reader</span> -->
+	
+	
+	<div class="collapse navbar-collapse bg-white" id="navbarTogglerDemo02">
+	<ul class="navbar-nav mr-auto mt-2 mt-lg-0 navbutton-ul" style="padding-left: 16%;">
+		<!--<li class="nav-item p-2">
+			<a id="icon-fontsize"  class="nav-item nav-link" onclick="window.history.go(-1)"><i class="fa fa-arrow-left text-c-dark"></i>&nbsp;Back</a>
+		</li>
+		<li class="nav-item  p-2">
+			<a  id="icon-fontsize"  class="nav-item nav-link  project-filesName-show-smaller" title="{{documentId}}">File [{{documentId}}] <span class="sr-only">(current)</span></a>
+		</li>
+		<li class="nav-item  p-2">
+			<a  class=" nav-item nav-link" onclick="window.history.go(-1)" title="File Upload">
+				<i id="icon-fontsize"  class="fa fa-upload text-c-dark"></i>
+			</a>
+		</li>
+		<li class="nav-item  p-2">
+			<button (click)="handleCoreOCRPipelineUpdate()" [disabled]="!runOCRButtonActive" class=" nav-item nav-link run-ocr ">
+				<i id="icon-fontsize" class="fa fa-chevron-right text-c-red" style="font-weight:600"></i>
+			</button>
+		</li>
+		<li class="nav-item  p-2 pt-3">
+			<div class="btn-group btn-group-toggle">
+				<label id="button-fontsize" class="btn btn-secondary btn-mini pl-1.1 active {{keepEngActiveCss}}" style="color: white;">
+					<input type="radio" (change)="keepEnglishChangeHandle($event)" value="1" name="keepEnglishOptions" id="keepEnglishOptions1" autocomplete="off" checked> Keep Eng
+				</label>
+				<label id="button-fontsize" class="btn btn-secondary btn-mini pl-1.1  {{keepEngRemoveActiveCss}}" style="background-color: white;">
+					<input type="radio" (change)="keepEnglishChangeHandle($event)" value="0" name="keepEnglishOptions" id="keepEnglishOptions2" autocomplete="off"> Remove
+				</label>
+			</div>
+		</li>
+		<li class="nav-item  p-2">
+			<a id="icon-fontsize" class="nav-item nav-link ml-2" href="#" data-toggle="modal" data-target="#ocroption_modal" title="OCR Options">
+				<i class="fa fa-wrench text-c-dark"></i>
+			</a>
+		</li>-->
+		<span><b>Welcome to Document Reader</b></span>
+	  </ul>
+	  <div class="my-2 my-lg-0">
+		<ul class="nav navbar-nav">
+			<span *ngIf="showLoading"><i class="fa fa-spinner fa-spin text-primary" style="font-size:30px"></i></span>
+			<div class="btn-group pr-4">
+					<!-- <img src="assets/img/user.png" class="" alt="" width="35" height="30" /> -->
+          <a (click)="buttonActive_home();" class="btn btn-primary text-white" id="home_button" [routerLink]="['/g-home']"> Home</a>
+          <a (click)="buttonActive_login();" class="btn btn-primary text-white" id="login_button"  [routerLink]="['/login']" > Login</a>
+				
+			  </div>
+			<!--<li class="nav-item " dropdown placement="bottom right">
+			  <a class="btn nav-link" data-toggle="dropdown" type="button">
+				<img src="assets/img/user.png" class="" alt="" width="40" height="30" />
+			</a>
+			  <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+				<div class="dropdown-header text-center"><strong>Settings</strong></div>
+				<!--<a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
+				<a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>
+				<a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a>
+				<div class="divider"></div>
+				<a class="dropdown-item" [routerLink]="['/users']"><i class="fa fa-user"></i> Users</a>
+				<a class="dropdown-item" [routerLink]="['/logout']"><i class="fa fa-lock"></i> Logout</a>
+			  </div>
+			</li>-->
+		  </ul>
+	  </div>
+	</div>
+  </nav>
+<br/>
+<br/>
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+	<div class="text-center m-2">
+            <img src="assets/img/document_reader_logo.png" class="img-100" alt="" />
+     </div>
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card-group">
+            <div class="card p-2">
+              <div class="card-body">
+                <span *ngIf="!isUserLoggedIn"></span>
+                <form #loginForm="ngForm" (ngSubmit)="onUserLogin(loginForm)">
+                  <div class="col-md-12">
+                       <h3 class="text-center">Login</h3>
+                       <div *ngIf="this.messageContent" class="alert alert-danger" role="alert">
+                        {{this.message}}
+                        <a type="button" class="close mt-1" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </a>
+                      </div>
+                   </div>
+                  <!--<p class="text-muted">Sign In to your account</p>-->
+                  <div class="input-group mb-3">
+                    <!--<div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-user"></i></span>
+                    </div>-->
+                    <input type="text" ngModel name="username" class="form-control" placeholder="Username" autocomplete="username" required #userNameInput="ngModel">
+                    <span class="help-block" *ngIf="userNameInput.Invalid" style="color:red">Pease enter user name</span>
+                  </div>
+                  <div class="input-group mb-4">
+                    <!--<div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>-->
+                    <input type="password" ngModel name="password" class="form-control" placeholder="Password" autocomplete="current-password" required #userPassInput="ngModel">
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <button [disabled]="loginForm.invalid" type="submit" class="btn bg-c-purple btn-md btn-block text-center m-b-20" style=" background: #35304c; color: white;">Login</button>
+                    </div>
+                    <div class="col-6">
+                      <button  type="submit" [routerLink]="['/register']"  class="btn bg-c-purple btn-md btn-block text-center m-b-20" style=" background: #35304c; color: white;">Self Registration</button>
+                    </div>
+                    <!-- <div class="col-12">
+                      <button [disabled]="loginForm.invalid" type="submit" class="btn bg-c-purple btn-md btn-block text-center m-b-20" style=" background: #35304c; color: white;">Login</button>
+                      <button  type="submit" [routerLink]="['/register']"  class="btn bg-c-purple btn-md btn-block text-center m-b-20" style=" background: #35304c; color: white;">Self Registation</button>
+                    </div> -->
+                    <!--<div class="col-6 text-right">
+                      <button type="button" class="btn btn-link px-0">Forgot password?</button>
+                    </div>-->
+                  </div>
+                </form>
+              </div>
+            </div>
+			
+           <!--<div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
+              <div class="card-body text-center">
+                <div>
+                  <h2>Welcome to Bangla OCR</h2>
+                  <img src="assets/img/shuborno_logo.png" class="img-avatar" alt=""  style="height:100px"/>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                   <button type="button" class="btn btn-primary active mt-3">Register Now!</button>
+                </div>
+              </div>
+            </div>-->
+          </div>
+		  <div class="text-center">
+          <!-- <img src="assets/img/footer.png" class="img-avatar" alt=""/>--> 
+         </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="container-fluid p-1 footer">
+  <div class="bg-white pt-3 h-100">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-4 col-sm-4 text-start mb-3 mb-sm-0">
+                  <div class="col d-flex h-100 text-sm-center d-flex justify-content-center">
+                      <div class="col-md-5 col-sm-5 justify-content-center align-self-center">পরিকল্পনা ও বাস্তবায়নে</div>
+                      <div class="col-md-7 col-sm-7 justify-content-center align-self-center">
+                          <a href="https://a2i.gov.bd" target="_blank"> <img class="img-fluid" src="https://cdap.training.mygov.bd/img/a2i-logo-set.png"> </a>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col-md-4 col-sm-4 mb-3 mb-sm-0">
+                  <div class="text-center h-100">
+                      <div> কপিরাইট © ২০২২  সর্বস্বত্ব সংরক্ষিত</div>
+                      <div>গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</div>
+                  </div>
+              </div>
+
+              <div class="col-md-4 col-sm-4 text-sm-center">
+                  <div class="row d-flex h-100 justify-content-center justify-content-lg-end justify-content-md-end justify-content-sm-center align-self-sm-center justify-content-xs-center">
+                      <div class="col-6 col-md-8 col-sm-8 d-flex justify-content-center align-self-center justify-content-sm-center align-self-sm-center text-sm-center">
+                          কারিগরি সহযোগিতায়
+                      </div>
+                      <div class="col-4 col-md-4 col-sm-4 d-flex justify-content-start align-self-center ps-0">
+                          <a href="https://apurba.com.bd/" target="_blank"> 
+                              <img class="img-fluid" src="https://apurba.com.bd/themes/images/apurba_bangladesh_logo.png">
+                          </a>
+                          
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</footer>
+
