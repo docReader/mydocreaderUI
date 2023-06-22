@@ -4,7 +4,7 @@ A2i myDocreader Web Application
 Before you begin, make sure your development environment includes `Node.js®` and an `npm` package manager.
 
 ###### Node.js
-Angular 11 requires `Node.js` version v14.18.1 or later.
+Angular 11 requires `Node.js` version v14.18.1.
 
 - To check your version, run `node -v` in a terminal/console window.
 - To get `Node.js`, go to https://nodejs.org/en/blog/release/v14.18.1
@@ -16,7 +16,7 @@ npm install -g @angular/cli
 ```
 
 ##### Update to Angular 11
-Angular 11  requires `Node.js` version v14.18.1 or newer    
+Angular 11  requires `Node.js` version v14.18.1    
 Update guide - see: [https://update.angular.io](https://update.angular.io)
 
 ## Installation
@@ -45,6 +45,8 @@ $ ng build
 
 # build for production with optimization (size optimized)
 $ ng build --prod --build-optimizer
+or
+$ npm run-script build
 
 ```
 
